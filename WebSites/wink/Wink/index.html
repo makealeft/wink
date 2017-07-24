@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8"/>
+    <script src="Scripts/plugins/jquery/jquery-3.1.1.min.js"></script>
+    <script src="Scripts/plugins/knockout/knockout-3.4.2.js"></script>
+    <script src="Scripts/index.js"></script>
+    <link rel="stylesheet" href="Content/Index.css"/>
+</head>
+<body>
+    <div class="authenticate hidden">
+        <a class="connect" href="">Connect</a>
+    </div>
+
+    <div class="authenticated hidden">
+        <section id="codeSection">
+            You are using code
+            <span class="code">[no code]</span>.
+        </section>
+
+        <section id="tokenSection">
+            Your Wink access token is
+            <span class="token">[no token]</span>.
+        </section>
+
+        <div id="devices">
+
+            <div data-bind="foreach: {data: devices, as: '_device'}">
+                <div class="device">
+                    <div class="name" data-bind="text: name, id: device_id"></div>
+                    <div class="manufacturer" data-bind="text: device_manufacturer"></div>
+                    <!-- ko if: _device.model_name-->
+                    <div class="model" data-bind="text: '('+ _device.model_name + ')'"></div>
+                    <!-- /ko -->
+                </div>
+                <!-- ko if: _device.desired_state && Object.keys(_device.desired_state).length > 0 -->
+                <h4>States</h4>
+                <table>
+                    <tbody>
+                    <tr data-bind="foreach: {data: Object.keys(_device.desired_state), as: '_state'}">
+                        <th data-bind="text: _state"></th>
+                    </tr>
+                    <tr data-bind="foreach: {data: Object.keys(_device.desired_state), as: '_state'}">
+                        <td data-bind="text: _device.desired_state[_state], css: _state"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- /ko -->
+
+                <!-- ko if: _device.sensor_pod_id && _device.last_reading && _device.last_reading.temperature-->
+                <div data-bind="text: 'Temperature: ' + parseFloat(_device.last_reading.temperature).toFixed(2)"></div>
+                <!-- /ko -->
+                <!-- ko if: _device.sensor_pod_id && _device.last_reading && _device.last_reading.occupied !== null -->
+                <div data-bind="text: 'Occupied: ' + _device.last_reading.occupied"></div>
+                <!-- /ko -->
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>

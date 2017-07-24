@@ -1,0 +1,38 @@
+﻿.device {
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0 -3px 0;
+}
+
+.name {
+    font-weight: bold;
+    width: 300px;
+}
+
+.manufacturer {
+    width: 200px;
+}
+
+h4 {
+    margin: 2px 5px;
+}
+
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin-left: 5px;
+}
+
+tr{
+    border-bottom: 1px solid black;    
+}
+
+th, td {
+    border-right: 1px solid black;
+}
+
+.powered {
+    cursor: pointer;
+    text-decoration: underline;
+    color: blue;
+}
